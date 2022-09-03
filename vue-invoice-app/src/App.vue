@@ -1,15 +1,21 @@
 <template>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div>
+        <div class="app">
+            <Navigation />
+            <div class="app-content">
+                <router-view />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import Navigation from './components/Navigation.vue';
 
 export default {
     name: 'App',
     components: {
-        HelloWorld,
+        Navigation,
     },
 };
 </script>
@@ -21,7 +27,26 @@ export default {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
     background-color: #141625;
+
+    min-height: 100vh;
+    @media (min-width: 900px) {
+        flex-direction: row;
+    }
+
+    .app-content {
+        display: flex;
+        flex-direction: column;
+
+        padding: 0 20px;
+        flex: 1;
+        position: relative;
+    }
 }
 
 button,
