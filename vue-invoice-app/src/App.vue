@@ -3,6 +3,7 @@
         <div class="app">
             <Navigation />
             <div class="app-content">
+                <InvoiceModel/>
                 <router-view />
             </div>
         </div>
@@ -11,11 +12,12 @@
 
 <script>
 import Navigation from './components/Navigation.vue';
-
+import InvoiceModel from './components/InvoiceModel.vue'
 export default {
     name: 'App',
     components: {
         Navigation,
+        InvoiceModel
     },
 };
 </script>
