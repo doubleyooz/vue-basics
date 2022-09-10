@@ -8,7 +8,7 @@
                 <div class="input">
                     <label for="billerStreetAddress">Street Address</label>
                     <input
-                        
+                        required
                         type="text"
                         id="billerStreetAddress"
                         v-model="billerStreetAddress"
@@ -242,7 +242,7 @@ export default {
     methods: {
         ...mapMutations(['TOGGLE_INVOICE']),
         closeInvoice() {
-            this.TOGGLE_INVOICE()
+            this.TOGGLE_INVOICE();
         },
     },
 };
@@ -265,6 +265,10 @@ export default {
 
     @media (min-width: 900px) {
         left: 90px;
+    }
+
+    &::-webkit-scrollbar {
+        display: none;
     }
 
     .invoice-content {

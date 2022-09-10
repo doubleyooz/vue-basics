@@ -3,7 +3,10 @@
         <div class="app">
             <Navigation />
             <div class="app-content">
-                <InvoiceModel v-if="invoiceModal" />
+                <transition name="invoice">
+                    <InvoiceForm v-if="invoiceModal" />
+                </transition>
+
                 <router-view />
             </div>
         </div>
@@ -13,16 +16,16 @@
 <script>
 import { mapState } from 'vuex';
 import Navigation from './components/Navigation.vue';
-import InvoiceModel from './components/InvoiceModel.vue';
+import InvoiceForm from './components/InvoiceModel.vue';
 export default {
     name: 'App',
     components: {
         Navigation,
-        InvoiceModel,
+        InvoiceForm,
     },
     computed: {
-        ...mapState(['invoiceModal'])
-    }
+        ...mapState(['invoiceModal']),
+    },
 };
 </script>
 
@@ -53,6 +56,16 @@ export default {
         flex: 1;
         position: relative;
     }
+}
+
+.invoice-enter-active,
+.invoice-leave-active {
+    transition: 0.8s ease all;
+}
+
+.invoice-enter-from,
+.invoice-leave-to {
+    transform: translateX(-700px);
 }
 
 button,
