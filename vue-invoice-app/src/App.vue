@@ -3,7 +3,7 @@
         <div class="app">
             <Navigation />
             <div class="app-content">
-                <InvoiceModel/>
+                <InvoiceModel />
                 <router-view />
             </div>
         </div>
@@ -12,12 +12,12 @@
 
 <script>
 import Navigation from './components/Navigation.vue';
-import InvoiceModel from './components/InvoiceModel.vue'
+import InvoiceModel from './components/InvoiceModel.vue';
 export default {
     name: 'App',
     components: {
         Navigation,
-        InvoiceModel
+        InvoiceModel,
     },
 };
 </script>
@@ -64,22 +64,37 @@ button,
 
 .dark-purple {
     background-color: #252945;
+    &:hover {
+        background-color: #1c1e37;
+    }
 }
 
 .red {
     background-color: #ec5757;
+    &:hover {
+        background-color: #cd4c4c;
+    }
 }
 
 .purple {
     background-color: #7c5dfa;
+    &:hover {
+        background-color: #674bd5;
+    }
 }
 
 .green {
     background-color: #33d69f;
+    &:hover {
+        background-color: #2cb98a;
+    }
 }
 
 .orange {
     background-color: #ff8f00;
+    &:hover {
+        background-color: #db7d01;
+    }
 }
 
 .container {

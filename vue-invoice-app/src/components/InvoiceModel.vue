@@ -139,9 +139,9 @@
                         id="paymentTerms"
                         v-model="paymentTerms"
                     >
-                        <option value="30">Net 30 DAys</option>
-                        <option value="60">Net 60 DAys</option>
-                        <option value="90">Net 90 DAys</option>
+                        <option value="30">Net 30 Days</option>
+                        <option value="60">Net 60 Days</option>
+                        <option value="90">Net 90 Days</option>
                     </select>
                 </div>
                 <div class="input">
@@ -246,6 +246,170 @@ export default {
     display: flex;
     flex-direction: column;
 
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow-y: scroll;
+
+    @media (min-width: 900px) {
+        left: 90px;
+    }
+
+    .invoice-content {
+        position: relative;
+        padding: 56px;
+        max-width: 700px;
+        width: 100%;
+        background-color: #141625;
+        color: white;
+        box-shadow: 10px 4px 6px -1px rgba(0, 0, 0, 0.2),
+            0 2px 4px -1px (0, 0, 0, 0.06);
+
+        h1 {
+            margin-bottom: 48px;
+            color: white;
+        }
+
+        h3 {
+            margin-bottom: 16px;
+            font-size: 18px;
+            color: #777f98;
+        }
+
+        h4 {
+            color: #7c5dfa;
+            font-size: 12px;
+            margin-bottom: 24px;
+        }
+
+        .bill-from,
+        .bill-from {
+            margin-bottom: 48px;
+
+            .location-details {
+                display: flex;
+                gap: 16px;
+
+                div {
+                    flex: 1;
+                }
+            }
+        }
+
+        .invoice-work {
+            .payment {
+                display: flex;
+                gap: 24px;
+                div {
+                    flex: 1;
+                }
+            }
+            .work-items {
+                .item-list {
+                    width: 100%;
+
+                    .table-heading,
+                    .table-items {
+                        display: flex;
+                        gap: 16px;
+                        font-size: 12px;
+
+                        .item-name {
+                            flex-basis: 50%;
+                        }
+
+                        .quant {
+                            flex-basis: 10%;
+                        }
+
+                        .price {
+                            flex-basis: 20%;
+                        }
+
+                        .total {
+                            flex-basis: 20%;
+                            align-self: center;
+                        }
+                    }
+
+                    .table-heading {
+                        margin-bottom: 16px;
+
+                        th {
+                            text-align: left;
+                        }
+                    }
+
+                    .table-items {
+                        position: relative;
+                        margin-bottom: 24px;
+
+                        unicon {
+                            position: absolute;
+                            top: 15px;
+                            right: 0px;
+                            width: 12px;
+                            height: 16px;
+                        }
+                    }
+                }
+
+                .button {
+                    color: white;
+                    background-color: #252945;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+
+                    unicon {
+                        margin-right: 4px;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        margin-top: 60px;
+
+        div {
+            flex: 1;
+        }
+
+        .right {
+            justify-content: flex-end;
+        }
+    }
+
+    .input {
+        margin-bottom: 24px;
+    }
+
+    .label {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    input,
+    select {
+        width: 100%;
+        background-color: #1e2139;
+        color: white;
+        border-radius: 4px;
+        padding: 12px 4px;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
     .bill-from,
     .bill-to,
     .input,
@@ -254,29 +418,9 @@ export default {
         flex-direction: column;
     }
 
-    .location-details {
-        display: flex;
-    }
-
-    .payment {
-        display: flex;
-    }
-
-    .table-heading {
-        display: flex;
-    }
-
-    .table-items {
-        display: flex;
-    }
-
     .button {
         display: flex;
         align-items: center;
-    }
-
-    .footer {
-        display: flex;
     }
 }
 </style>
