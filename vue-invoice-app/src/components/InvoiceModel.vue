@@ -8,7 +8,7 @@
                 <div class="input">
                     <label for="billerStreetAddress">Street Address</label>
                     <input
-                        required
+                        
                         type="text"
                         id="billerStreetAddress"
                         v-model="billerStreetAddress"
@@ -212,6 +212,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
     name: 'invoiceModel',
     data() {
@@ -237,6 +238,12 @@ export default {
             invoiceItemList: [],
             invoiceTotal: 0,
         };
+    },
+    methods: {
+        ...mapMutations(['TOGGLE_INVOICE']),
+        closeInvoice() {
+            this.TOGGLE_INVOICE()
+        },
     },
 };
 </script>

@@ -3,7 +3,7 @@
         <div class="app">
             <Navigation />
             <div class="app-content">
-                <InvoiceModel />
+                <InvoiceModel v-if="invoiceModal" />
                 <router-view />
             </div>
         </div>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Navigation from './components/Navigation.vue';
 import InvoiceModel from './components/InvoiceModel.vue';
 export default {
@@ -19,6 +20,9 @@ export default {
         Navigation,
         InvoiceModel,
     },
+    computed: {
+        ...mapState(['invoiceModal'])
+    }
 };
 </script>
 
