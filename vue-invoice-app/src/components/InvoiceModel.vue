@@ -122,12 +122,12 @@
                     </div>
 
                     <div class="input">
-                        <label for="paymentDue">Payment Due</label>
+                        <label for="paymentDueDate">Payment Due</label>
                         <input
                             disabled
                             type="text"
-                            id="paymentDue"
-                            v-model="paymentDue"
+                            id="paymentDueDate"
+                            v-model="paymentDueDate"
                         />
                     </div>
                 </div>
@@ -217,8 +217,9 @@ export default {
     name: 'invoiceModel',
     data() {
         return {
+            dateOptions: { year: 'numeric', month: 'short', day: 'numeric' },
             billerStreetAddress: null,
-            billetCity: null,
+            billerCity: null,
             billerZipCode: null,
             billerCountry: null,
             clientName: null,
@@ -239,10 +240,28 @@ export default {
             invoiceTotal: 0,
         };
     },
+    created() {
+        this.invoiceDateUnix = Date.now();
+        this.invoiceDate = new Date(this.invoiceDateUnix).toLocaleDateString(
+            'en-us',
+            this.dateOptions
+        );
+    },
     methods: {
         ...mapMutations(['TOGGLE_INVOICE']),
         closeInvoice() {
             this.TOGGLE_INVOICE();
+        },
+    },
+    watch: {
+        paymentTerms() {
+            const futureDate = new Date();
+            this.paymentDueDateUnix = futureDate.setDate(
+                futureDate.getDate() + parseInt(this.paymentTerms)
+            );
+            this.paymentDueDate = new Date(
+                this.paymentDueDateUnix
+            ).toLocaleDateString('en-us', this.dateOptions);
         },
     },
 };

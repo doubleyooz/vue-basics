@@ -43,7 +43,7 @@ export default {
             this.TOGGLE_INVOICE();
         },
         toggleFilterMenu() {
-            console.log(this.filterMenu)
+            console.log(this.filterMenu);
             this.filterMenu = !this.filterMenu;
         },
     },
