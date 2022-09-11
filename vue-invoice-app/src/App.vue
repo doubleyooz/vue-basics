@@ -80,37 +80,37 @@ button,
 }
 
 .dark-purple {
-    background-color: #252945;
+    background-color: #252945 !important ;
     &:hover {
-        background-color: #1c1e37;
+        background-color: #1c1e37 !important ;
     }
 }
 
 .red {
-    background-color: #ec5757;
+    background-color: #ec5757 !important ;
     &:hover {
-        background-color: #cd4c4c;
+        background-color: #cd4c4c !important ;
     }
 }
 
 .purple {
-    background-color: #7c5dfa;
+    background-color: #7c5dfa !important ;
     &:hover {
-        background-color: #674bd5;
+        background-color: #674bd5 !important ;
     }
 }
 
 .green {
-    background-color: #33d69f;
+    background-color: #33d69f !important ;
     &:hover {
-        background-color: #2cb98a;
+        background-color: #2cb98a !important ;
     }
 }
 
 .orange {
-    background-color: #ff8f00;
+    background-color: #ff8f00 !important ;
     &:hover {
-        background-color: #db7d01;
+        background-color: #db7d01 !important ;
     }
 }
 

@@ -1,46 +1,64 @@
 <template>
     <div @click="checkClick" ref="invoiceWrap" class="invoice-wrap">
-        <form @submit.prevent="submitForm" class="invoice-content">
+        <Form
+            @submit="handleSubmit"
+            :validation-schema="newInvoiceSchema"
+            v-slot="{ errors }"
+            :initial-values="formValues"
+            class="invoice-content"
+        >
             <h1>New Invoice</h1>
 
             <div class="bill-from">
                 <h4>Bill From</h4>
-                <div class="input">
+                <div
+                    v-bind:class="`input ${
+                        errors.billerStreetAddress ? 'error' : ''
+                    }`"
+                >
                     <label for="billerStreetAddress">Street Address</label>
-                    <input
-                        required
+
+                    <Field
                         type="text"
                         id="billerStreetAddress"
-                        v-model="billerStreetAddress"
+                        name="billerStreetAddress"
                     />
                 </div>
 
                 <div class="location-details">
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.billerCity ? 'error' : ''
+                        }`"
+                    >
                         <label for="billerCity">City</label>
-                        <input
-                            required
-                            type="text"
-                            id="billerCity"
-                            v-model="billerCity"
-                        />
+
+                        <Field type="text" id="billerCity" name="billerCity" />
                     </div>
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.billerZipCode ? 'error' : ''
+                        }`"
+                    >
                         <label for="billerZipCode">Zip Code</label>
-                        <input
-                            required
+
+                        <Field
                             type="text"
                             id="billerZipCode"
-                            v-model="billerZipCode"
+                            name="billerZipCode"
                         />
                     </div>
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.billerCountry ? 'error' : ''
+                        }`"
+                    >
                         <label for="billerCountry">Country</label>
-                        <input
-                            required
+
+                        <Field
                             type="text"
                             id="billerCountry"
-                            v-model="billerCountry"
+                            name="billerCountry"
                         />
                     </div>
                 </div>
@@ -48,62 +66,74 @@
 
             <div class="bill-to">
                 <h4>Bill To</h4>
-                <div class="input">
+                <div
+                    v-bind:class="`input ${
+                        errors.clientName ? 'error' : ''
+                    }`"
+                >
                     <label for="clientName">Client's Name</label>
-                    <input
-                        required
-                        type="text"
-                        id="clientName"
-                        v-model="clientName"
-                    />
+
+                    <Field type="text" id="clientName" name="clientName" />
                 </div>
-                <div class="input">
+                <div
+                    v-bind:class="`input ${
+                        errors.clientEmail ? 'error' : ''
+                    }`"
+                >
                     <label for="clientEmail">Client's Email</label>
-                    <input
-                        required
-                        type="text"
-                        id="clientEmail"
-                        v-model="clientEmail"
-                    />
+
+                    <Field type="text" id="clientEmail" name="clientEmail" />
                 </div>
-                <div class="input">
+                <div
+                    v-bind:class="`input ${
+                        errors.clientStreetAddress ? 'error' : ''
+                    }`"
+                >
                     <label for="clientStreetAddress"
                         >Client's Street Address</label
                     >
-                    <input
-                        required
+
+                    <Field
                         type="text"
                         id="clientStreetAddress"
-                        v-model="clientStreetAddress"
+                        name="clientStreetAddress"
                     />
                 </div>
 
                 <div class="location-details">
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.clientCity ? 'error' : ''
+                        }`"
+                    >
                         <label for="clientCity">City</label>
-                        <input
-                            required
-                            type="text"
-                            id="clientCity"
-                            v-model="clientCity"
-                        />
+
+                        <Field type="text" id="clientCity" name="clientCity" />
                     </div>
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.clientZipCode ? 'error' : ''
+                        }`"
+                    >
                         <label for="clientZipCode">Zip Code</label>
-                        <input
-                            required
+
+                        <Field
                             type="text"
                             id="clientZipCode"
-                            v-model="clientZipCode"
+                            name="clientZipCode"
                         />
                     </div>
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.clientCountry ? 'error' : ''
+                        }`"
+                    >
                         <label for="clientCountry">Country</label>
-                        <input
-                            required
+
+                        <Field
                             type="text"
                             id="clientCountry"
-                            v-model="clientCountry"
+                            name="clientCountry"
                         />
                     </div>
                 </div>
@@ -111,46 +141,62 @@
 
             <div class="invoice-work">
                 <div class="payment">
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.invoiceDate ? 'error' : ''
+                        }`"
+                    >
                         <label for="invoiceDate">Invoice Date</label>
-                        <input
+
+                        <Field
                             disabled
                             type="text"
                             id="invoiceDate"
-                            v-model="invoiceDate"
+                            name="invoiceDate"
                         />
                     </div>
 
-                    <div class="input">
+                    <div
+                        v-bind:class="`input ${
+                            errors.paymentDueDate ? 'error' : ''
+                        }`"
+                    >
                         <label for="paymentDueDate">Payment Due</label>
-                        <input
+                        <Field
                             disabled
                             type="text"
                             id="paymentDueDate"
-                            v-model="paymentDueDate"
+                            name="paymentDueDate"
                         />
                     </div>
                 </div>
-                <div class="input">
+                <div
+                    v-bind:class="`input ${
+                        errors.paymentTerms ? 'error' : ''
+                    }`"
+                >
                     <label for="paymentTerms">Payment Terms</label>
                     <select
-                        required
                         type="text"
                         id="paymentTerms"
-                        v-model="paymentTerms"
+                        name="paymentTerms"
+                        as="select"
                     >
                         <option value="30">Net 30 Days</option>
                         <option value="60">Net 60 Days</option>
                         <option value="90">Net 90 Days</option>
                     </select>
                 </div>
-                <div class="input">
+                <div
+                    v-bind:class="`input ${
+                        errors.productDescription ? 'error' : ''
+                    }`"
+                >
                     <label for="productDescription">Product Description</label>
-                    <input
-                        required
+                    <Field
                         type="text"
                         id="productDescription"
-                        v-model="productDescription"
+                        name="productDescription"
                     />
                 </div>
                 <div class="work-items">
@@ -168,13 +214,13 @@
                             :key="index"
                         >
                             <td class="item-name">
-                                <input type="text" v-model="item.itemName" />
+                                <Field type="text" name="item.itemName" />
                             </td>
                             <td class="quant">
-                                <input type="text" v-model="item.quant" />
+                                <Field type="text" name="item.quant" />
                             </td>
                             <td class="price">
-                                <input type="text" v-model="item.price" />
+                                <Field type="text" name="item.price" />
                             </td>
                             <td class="total">
                                 ${{ (item.total = item.quant * item.price) }}
@@ -199,26 +245,54 @@
                         </button>
                     </div>
                     <div class="right">
-                        <button @click="saveDraft" class="dark-purple">
-                            Save Draft
-                        </button>
-                        <button @click="publishInvoice" class="purple">
-                            Create Invoice
-                        </button>
+                        <input
+                            type="submit"
+                            class="something dark-purple"
+                            value="Save Draft"
+                        />
+                        <input
+                            type="submit"
+                            class="something purple"
+                            value="Create Invoice"
+                        />
                     </div>
                 </div>
             </div>
-        </form>
+        </Form>
     </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
+import { Form, Field } from 'vee-validate';
 import { uid } from 'uid';
+import { object } from 'yup';
+import { rules } from '../utils/yup.util';
+
+const newInvoiceSchema = object({
+    billerStreetAddress: rules.street.required(),
+    billerCity: rules.city.required(),
+    billerZipCode: rules.zipCode.required(),
+    billerCountry: rules.country.required(),
+    clientName: rules.name.required(),
+    clientEmail: rules.email.required(),
+    clientStreetAddress: rules.street.required(),
+    clientZipCode: rules.zipCode.required(),
+    clientCountry: rules.country.required(),
+    invoiceDate: rules.date.required(),
+    paymentDueDate: rules.date.required(),
+    productDescription: rules.description.required(),
+});
+
 export default {
     name: 'invoiceModel',
+    components: {
+        Form,
+        Field,
+    },
     data() {
         return {
+            newInvoiceSchema: newInvoiceSchema,
             dateOptions: { year: 'numeric', month: 'short', day: 'numeric' },
             billerStreetAddress: null,
             billerCity: null,
@@ -269,6 +343,22 @@ export default {
                 (item) => item.id !== id
             );
         },
+
+        publishInvoice() {
+            this.invoicePending = true;
+        },
+
+        saveDraft() {
+            this.invoiceDraft = true;
+        },
+
+        handleSubmit(values, actions) {
+            console.log(actions);
+            console.log(values);
+            this.uploadInvoice();
+        },
+
+        async uploadInvoice() {},
     },
     watch: {
         paymentTerms() {
@@ -330,7 +420,7 @@ export default {
             margin-bottom: 24px;
         }
 
-        .bill-from,
+        .bill-to,
         .bill-from {
             margin-bottom: 48px;
 
@@ -458,11 +548,33 @@ export default {
         .right {
             display: flex;
             justify-content: flex-end;
+
+            .something {
+                cursor: pointer;
+                padding: 16px 24px;
+                border-radius: 30px;
+                border: none;
+                font-size: 12px;
+                margin-right: 8px;
+                color: #fff;
+            }
         }
     }
 
     .input {
+        display: flex;
+        flex-direction: column;
         margin-bottom: 24px;
+    }
+
+    .error {
+        label {
+            color: red;
+        }
+
+        input {
+            border: 1px solid #cf0202;
+        }
     }
 
     .label {
@@ -486,10 +598,7 @@ export default {
 
     .bill-from,
     .bill-to,
-    .input,
     .invoice-work {
-        display: flex;
-        flex-direction: column;
     }
 
     @media (min-width: 900px) {
