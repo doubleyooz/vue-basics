@@ -180,14 +180,15 @@
                                 ${{ (item.total = item.quant * item.price) }}
                             </td>
                             <unicon
+                                class="unicon"
                                 @click="deleteInvoiceItem(item.id)"
-                                name="close"
-                                fill="purple"
+                                name="trash-alt"
+                                fill="white"
                             />
                         </tr>
                     </table>
                     <div @click="addNewInvoiceItem" class="button">
-                        <unicon name="plus" fill="white" />
+                        <unicon class="unicon" name="plus" fill="white" />
                         Add New Item
                     </div>
                 </div>
@@ -262,6 +263,11 @@ export default {
                 price: 0,
                 total: 0,
             });
+        },
+        deleteInvoiceItem(id) {
+            this.invoiceItemList = this.invoiceItemList.filter(
+                (item) => item.id !== id
+            );
         },
     },
     watch: {
@@ -416,14 +422,11 @@ export default {
 
                     .table-items {
                         position: relative;
+                        align-items: center;
                         margin-bottom: 24px;
 
-                        unicon {
-                            position: absolute;
-                            top: 15px;
-                            right: 0px;
-                            width: 12px;
-                            height: 16px;
+                        .unicon {
+                            cursor: pointer;
                         }
                     }
                 }
@@ -436,7 +439,7 @@ export default {
                     justify-content: center;
                     width: 100%;
 
-                    unicon {
+                    .unicon {
                         margin-right: 4px;
                     }
                 }
