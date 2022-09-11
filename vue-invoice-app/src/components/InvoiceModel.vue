@@ -164,7 +164,7 @@
                         </tr>
                         <tr
                             class="table-items"
-                            v-for="{ item, index } in invoiceItemList"
+                            v-for="(item, index) in invoiceItemList"
                             :key="index"
                         >
                             <td class="item-name">
@@ -186,7 +186,7 @@
                             />
                         </tr>
                     </table>
-                    <div @click="addNewInvoice" class="button">
+                    <div @click="addNewInvoiceItem" class="button">
                         <unicon name="plus" fill="white" />
                         Add New Item
                     </div>
@@ -213,6 +213,7 @@
 
 <script>
 import { mapMutations } from 'vuex';
+import { uid } from 'uid';
 export default {
     name: 'invoiceModel',
     data() {
@@ -252,6 +253,16 @@ export default {
         closeInvoice() {
             this.TOGGLE_INVOICE();
         },
+
+        addNewInvoiceItem() {
+            this.invoiceItemList.push({
+                id: uid(),
+                itemName: '',
+                quant: '',
+                price: 0,
+                total: 0,
+            });
+        },
     },
     watch: {
         paymentTerms() {
@@ -281,10 +292,6 @@ export default {
     height: 100vh;
 
     overflow-y: scroll;
-
-    @media (min-width: 900px) {
-        left: 90px;
-    }
 
     &::-webkit-scrollbar {
         display: none;
@@ -323,7 +330,14 @@ export default {
 
             .location-details {
                 display: flex;
+                flex-wrap: wrap;
                 gap: 16px;
+
+                .input {
+                    label {
+                        min-width: 78px;
+                    }
+                }
 
                 div {
                     flex: 1;
@@ -334,6 +348,7 @@ export default {
         .invoice-work {
             .payment {
                 display: flex;
+
                 gap: 24px;
                 div {
                     flex: 1;
@@ -347,21 +362,28 @@ export default {
                     .table-items {
                         display: flex;
                         gap: 16px;
+
                         font-size: 12px;
 
                         .item-name {
+                            min-width: 100px;
+                            max-width: 240px;
                             flex-basis: 50%;
                         }
 
                         .quant {
+                            min-width: 50px;
                             flex-basis: 10%;
                         }
 
                         .price {
+                            min-width: 50px;
                             flex-basis: 20%;
                         }
 
                         .total {
+                            display: flex;
+                            min-width: 50px;
                             flex-basis: 20%;
                             align-self: center;
                         }
@@ -370,6 +392,23 @@ export default {
                     .table-heading {
                         margin-bottom: 16px;
 
+                        @media (max-width: 660px) {
+                            .item-name {
+                                flex-basis: 45%;
+                            }
+                        }
+
+                        @media (max-width: 630px) {
+                            .item-name {
+                                flex-basis: 40%;
+                            }
+                        }
+
+                        @media (max-width: 460px) {
+                            .item-name {
+                                flex-basis: 33%;
+                            }
+                        }
                         th {
                             text-align: left;
                         }
@@ -390,6 +429,7 @@ export default {
                 }
 
                 .button {
+                    display: flex;
                     color: white;
                     background-color: #252945;
                     align-items: center;
@@ -413,6 +453,7 @@ export default {
         }
 
         .right {
+            display: flex;
             justify-content: flex-end;
         }
     }
@@ -448,9 +489,8 @@ export default {
         flex-direction: column;
     }
 
-    .button {
-        display: flex;
-        align-items: center;
+    @media (min-width: 900px) {
+        left: 90px;
     }
 }
 </style>
