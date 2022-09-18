@@ -1,64 +1,49 @@
 <template>
     <div @click="checkClick" ref="invoiceWrap" class="invoice-wrap">
-        <Form
-            @submit="handleSubmit"
-            :validation-schema="newInvoiceSchema"
-            v-slot="{ errors }"
-            :initial-values="formValues"
-            class="invoice-content"
-        >
+        <form @submit.prevent="handleSubmit" class="invoice-content">
             <h1>New Invoice</h1>
 
             <div class="bill-from">
                 <h4>Bill From</h4>
-                <div
-                    v-bind:class="`input ${
-                        errors.billerStreetAddress ? 'error' : ''
-                    }`"
-                >
+                <div class="input">
                     <label for="billerStreetAddress">Street Address</label>
 
-                    <Field
+                    <input
                         type="text"
-                        id="billerStreetAddress"
                         name="billerStreetAddress"
+                        v-model="state.billerStreetAddress"
                     />
+                    <span v-if="v$.billerStreetAddress.$error">
+                        {{ v$.billerStreetAddress.$errors[0].$message }}</span
+                    >
                 </div>
 
                 <div class="location-details">
-                    <div
-                        v-bind:class="`input ${
-                            errors.billerCity ? 'error' : ''
-                        }`"
-                    >
+                    <div class="input">
                         <label for="billerCity">City</label>
 
-                        <Field type="text" id="billerCity" name="billerCity" />
-                    </div>
-                    <div
-                        v-bind:class="`input ${
-                            errors.billerZipCode ? 'error' : ''
-                        }`"
-                    >
-                        <label for="billerZipCode">Zip Code</label>
-
-                        <Field
+                        <input
                             type="text"
-                            id="billerZipCode"
-                            name="billerZipCode"
+                            name="billerCity"
+                            v-model="state.billerCity"
                         />
                     </div>
-                    <div
-                        v-bind:class="`input ${
-                            errors.billerCountry ? 'error' : ''
-                        }`"
-                    >
+                    <div class="input">
+                        <label for="billerZipCode">Zip Code</label>
+
+                        <input
+                            type="text"
+                            name="billerZipCode"
+                            v-model="state.billerZipCode"
+                        />
+                    </div>
+                    <div class="input">
                         <label for="billerCountry">Country</label>
 
-                        <Field
+                        <input
                             type="text"
-                            id="billerCountry"
                             name="billerCountry"
+                            v-model="state.billerCountry"
                         />
                     </div>
                 </div>
@@ -66,74 +51,62 @@
 
             <div class="bill-to">
                 <h4>Bill To</h4>
-                <div
-                    v-bind:class="`input ${
-                        errors.clientName ? 'error' : ''
-                    }`"
-                >
+                <div class="input">
                     <label for="clientName">Client's Name</label>
 
-                    <Field type="text" id="clientName" name="clientName" />
+                    <input
+                        type="text"
+                        name="clientName"
+                        v-model="state.clientName"
+                    />
                 </div>
-                <div
-                    v-bind:class="`input ${
-                        errors.clientEmail ? 'error' : ''
-                    }`"
-                >
+                <div class="input">
                     <label for="clientEmail">Client's Email</label>
 
-                    <Field type="text" id="clientEmail" name="clientEmail" />
+                    <input
+                        type="text"
+                        name="clientEmail"
+                        v-model="state.clientEmail"
+                    />
                 </div>
-                <div
-                    v-bind:class="`input ${
-                        errors.clientStreetAddress ? 'error' : ''
-                    }`"
-                >
+                <div class="input">
                     <label for="clientStreetAddress"
                         >Client's Street Address</label
                     >
 
-                    <Field
+                    <input
                         type="text"
-                        id="clientStreetAddress"
                         name="clientStreetAddress"
+                        v-model="state.clientStreetAddress"
                     />
                 </div>
 
                 <div class="location-details">
-                    <div
-                        v-bind:class="`input ${
-                            errors.clientCity ? 'error' : ''
-                        }`"
-                    >
+                    <div class="input">
                         <label for="clientCity">City</label>
 
-                        <Field type="text" id="clientCity" name="clientCity" />
-                    </div>
-                    <div
-                        v-bind:class="`input ${
-                            errors.clientZipCode ? 'error' : ''
-                        }`"
-                    >
-                        <label for="clientZipCode">Zip Code</label>
-
-                        <Field
+                        <input
                             type="text"
-                            id="clientZipCode"
-                            name="clientZipCode"
+                            name="clientCity"
+                            v-model="state.clientCity"
                         />
                     </div>
-                    <div
-                        v-bind:class="`input ${
-                            errors.clientCountry ? 'error' : ''
-                        }`"
-                    >
+                    <div class="input">
+                        <label for="clientZipCode">Zip Code</label>
+
+                        <input
+                            type="text"
+                            name="clientZipCode"
+                            v-model="state.clientZipCode"
+                        />
+                    </div>
+                    <div class="input">
                         <label for="clientCountry">Country</label>
 
-                        <Field
+                        <input
                             type="text"
-                            id="clientCountry"
                             name="clientCountry"
+                            v-model="state.clientCountry"
                         />
                     </div>
                 </div>
@@ -141,62 +114,46 @@
 
             <div class="invoice-work">
                 <div class="payment">
-                    <div
-                        v-bind:class="`input ${
-                            errors.invoiceDate ? 'error' : ''
-                        }`"
-                    >
+                    <div class="input">
                         <label for="invoiceDate">Invoice Date</label>
 
-                        <Field
+                        <input
                             disabled
                             type="text"
-                            id="invoiceDate"
                             name="invoiceDate"
+                            v-model="state.invoiceDate"
                         />
                     </div>
 
-                    <div
-                        v-bind:class="`input ${
-                            errors.paymentDueDate ? 'error' : ''
-                        }`"
-                    >
+                    <div class="input">
                         <label for="paymentDueDate">Payment Due</label>
-                        <Field
+                        <input
                             disabled
                             type="text"
-                            id="paymentDueDate"
                             name="paymentDueDate"
+                            v-model="state.paymentDueDate"
                         />
                     </div>
                 </div>
-                <div
-                    v-bind:class="`input ${
-                        errors.paymentTerms ? 'error' : ''
-                    }`"
-                >
+                <div class="input">
                     <label for="paymentTerms">Payment Terms</label>
                     <select
                         type="text"
-                        id="paymentTerms"
                         name="paymentTerms"
+                        v-model="state.paymentTerms"
                         as="select"
                     >
-                        <option value="30">Net 30 Days</option>
-                        <option value="60">Net 60 Days</option>
-                        <option value="90">Net 90 Days</option>
+                        <option value="30">Next 30 Days</option>
+                        <option value="60">Next 60 Days</option>
+                        <option value="90">Next 90 Days</option>
                     </select>
                 </div>
-                <div
-                    v-bind:class="`input ${
-                        errors.productDescription ? 'error' : ''
-                    }`"
-                >
+                <div class="input">
                     <label for="productDescription">Product Description</label>
-                    <Field
+                    <input
                         type="text"
-                        id="productDescription"
                         name="productDescription"
+                        v-model="state.productDescription"
                     />
                 </div>
                 <div class="work-items">
@@ -210,20 +167,20 @@
                         </tr>
                         <tr
                             class="table-items"
-                            v-for="(item, index) in invoiceItemList"
-                            :key="index"
+                            v-for="item in state.invoiceItemList"
+                            :key="item.id"
                         >
                             <td class="item-name">
-                                <Field type="text" name="item.itemName" />
+                                <input type="text" name="item.name" />
                             </td>
-                            <td class="quant">
-                                <Field type="text" name="item.quant" />
+                            <td class="quantity">
+                                <input type="text" name="item.quantity" />
                             </td>
                             <td class="price">
-                                <Field type="text" name="item.price" />
+                                <input type="text" name="item.price" />
                             </td>
                             <td class="total">
-                                ${{ (item.total = item.quant * item.price) }}
+                                ${{ (item.total = item.quantity * item.price) }}
                             </td>
                             <unicon
                                 class="unicon"
@@ -258,71 +215,143 @@
                     </div>
                 </div>
             </div>
-        </Form>
+        </form>
     </div>
 </template>
 
 <script>
 import { mapMutations } from 'vuex';
-import { Form, Field } from 'vee-validate';
+import { reactive, computed } from 'vue';
+import useValidate from '@vuelidate/core';
+import {
+    required,
+    email,
+    minValue,
+    maxLength,
+    minLength,
+} from '@vuelidate/validators';
 import { uid } from 'uid';
-import { object } from 'yup';
-import { rules } from '../utils/yup.util';
-
-const newInvoiceSchema = object({
-    billerStreetAddress: rules.street.required(),
-    billerCity: rules.city.required(),
-    billerZipCode: rules.zipCode.required(),
-    billerCountry: rules.country.required(),
-    clientName: rules.name.required(),
-    clientEmail: rules.email.required(),
-    clientStreetAddress: rules.street.required(),
-    clientZipCode: rules.zipCode.required(),
-    clientCountry: rules.country.required(),
-    invoiceDate: rules.date.required(),
-    paymentDueDate: rules.date.required(),
-    productDescription: rules.description.required(),
-});
 
 export default {
     name: 'invoiceModel',
-    components: {
-        Form,
-        Field,
-    },
-    data() {
-        return {
-            newInvoiceSchema: newInvoiceSchema,
+    components: {},
+
+    setup() {
+        const state = reactive({
             dateOptions: { year: 'numeric', month: 'short', day: 'numeric' },
-            billerStreetAddress: null,
-            billerCity: null,
-            billerZipCode: null,
-            billerCountry: null,
-            clientName: null,
-            clientEmail: null,
-            clientStreetAddress: null,
-            clientCity: null,
-            clientZipCode: null,
-            clientCountry: null,
-            invoiceDateUnix: null,
-            invoiceDate: null,
-            paymentTerms: null,
-            paymentDueDate: null,
-            paymentDueDateUnix: null,
-            productDescription: null,
-            invoicePending: null,
-            invoiceDraft: null,
+            billerStreetAddress: '',
+            billerCity: '',
+            billerZipCode: '',
+            billerCountry: '',
+            clientName: '',
+            clientEmail: '',
+            clientStreetAddress: '',
+            clientCity: '',
+            clientZipCode: '',
+            clientCountry: '',
+            invoiceDateUnix: '',
+            invoiceDate: '',
+            paymentTerms: '',
+            paymentDueDate: '',
+            paymentDueDateUnix: '',
+            productDescription: '',
+            invoicePending: '',
+            invoiceDraft: '',
             invoiceItemList: [],
             invoiceTotal: 0,
+        });
+
+        const rules = computed(() => {
+            return {
+                billerStreetAddress: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(30),
+                },
+                billerCity: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(20),
+                },
+                billerZipCode: {
+                    required,
+                    minLength: minLength(4),
+                    maxLength: maxLength(20),
+                },
+                billerCountry: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(20),
+                },
+                clientName: {
+                    required,
+                    minLength: minLength(3),
+                    maxLength: maxLength(20),
+                },
+                clientEmail: { required, email },
+                clientStreetAddress: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(50),
+                },
+                clientCity: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(20),
+                },
+                clientZipCode: {
+                    required,
+                    minLength: minLength(4),
+                    maxLength: maxLength(20),
+                },
+                clientCountry: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(20),
+                },
+                invoiceDate: { required },
+                paymentTerms: { required },
+                paymentDueDate: { required },
+                productDescription: {
+                    required,
+                    minLength: minLength(5),
+                    maxLength: maxLength(25),
+                },
+            
+                invoiceItemList: {
+                    $each: {
+                        name: {
+                            required,
+                            minLength: minLength(3),
+                            maxLength: maxLength(15),
+                        },
+                        quantity: {
+                            required,
+                            minValue: minValue(0),
+                        },
+                        price: {
+                            required,
+                            minValue: minValue(0),
+                        },
+                    },
+                },
+            };
+        });
+
+        const v$ = useValidate(rules, state);
+
+        return {
+            state,
+            v$,
         };
     },
     created() {
-        this.invoiceDateUnix = Date.now();
-        this.invoiceDate = new Date(this.invoiceDateUnix).toLocaleDateString(
-            'en-us',
-            this.dateOptions
-        );
+        this.state.invoiceDateUnix = Date.now();
+        this.state.invoiceDate = new Date(
+            this.state.invoiceDateUnix
+        ).toLocaleDateString('en-us', this.dateOptions);
     },
+
     methods: {
         ...mapMutations(['TOGGLE_INVOICE']),
         closeInvoice() {
@@ -330,10 +359,10 @@ export default {
         },
 
         addNewInvoiceItem() {
-            this.invoiceItemList.push({
+            this.state.invoiceItemList.push({
                 id: uid(),
-                itemName: '',
-                quant: '',
+                name: '',
+                quantity: '',
                 price: 0,
                 total: 0,
             });
@@ -345,30 +374,43 @@ export default {
         },
 
         publishInvoice() {
-            this.invoicePending = true;
+            console.log('publishInvoice');
+            
+            this.state.invoicePending = true;
         },
 
         saveDraft() {
-            this.invoiceDraft = true;
+            console.log('save draft');
+            
+            this.state.invoiceDraft = true;
         },
 
-        handleSubmit(values, actions) {
-            console.log(actions);
-            console.log(values);
+        handleSubmit(values) {
+          
+            this.v$.$validate()
+            if (this.v$.$error) {
+                console.log(this.v$.$errors);
+                return;
+            }
+
+            if (values.submitter._value == 'Save Draft') this.saveDraft();
+            else if (values.submitter._value == 'Create Invoice')
+                this.publishInvoice();
             this.uploadInvoice();
         },
 
         async uploadInvoice() {},
     },
     watch: {
-        paymentTerms() {
+        'state.paymentTerms': function () {
             const futureDate = new Date();
-            this.paymentDueDateUnix = futureDate.setDate(
-                futureDate.getDate() + parseInt(this.paymentTerms)
+            this.state.paymentDueDateUnix = futureDate.setDate(
+                futureDate.getDate() + parseInt(this.state.paymentTerms)
             );
-            this.paymentDueDate = new Date(
-                this.paymentDueDateUnix
-            ).toLocaleDateString('en-us', this.dateOptions);
+            console.log(futureDate);
+            this.state.paymentDueDate = new Date(
+                this.state.paymentDueDateUnix
+            ).toLocaleDateString('en-us', this.state.dateOptions);
         },
     },
 };
