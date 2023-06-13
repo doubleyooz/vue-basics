@@ -114,7 +114,7 @@
               <div
                 class="absolute bg-white max-w-[700px] top-[35px] h-auto w-full"
               >
-                <div v-if="true" class="p-1">
+                <div v-if="isSearching" class="p-1">
                   <NuxtLink
                     to="`/item/1`"
                     class="flex items-center border justify-between w-full cursor-pointer hover:bg-gray-100"
@@ -174,8 +174,9 @@
 <script setup>
 import { useUserStore } from "~/stores/user";
 const userStore = useUserStore();
+
 let isAccountMenu = ref(false);
 let isCartHover = ref(false);
-let isSearching = ref(true);
+let isSearching = ref(false);
 let searchItem = ref("");
 </script>
