@@ -3,7 +3,7 @@
     <div id="ShoppingCartPage" class="mt-4 max-w-[1200px] mx-auto px-2">
       <div v-if="false" class="h-[500px] flex items-center justify-center">
         <div class="pt-20">
-          <img src="/cart-empty.png" width="250" class="mx-auto" alt="" />
+          <img src="~/assets/cart-empty.png" width="250" class="mx-auto" alt="" />
 
           <div class="text-xl text-center mt-4">No items yet?</div>
 
@@ -61,7 +61,7 @@
             <div class="text-lg font-semibold mb-2">Payment methods</div>
             <div class="flex items-center justify-start gap-8 my-4">
               <div v-for="card in cards">
-                <img class="h-6" :src="`/_nuxt/assets/${card}`" alt="" />
+                <img class="h-6" :src="`~/assets/${card}`" alt="" />
               </div>
             </div>
           </div>

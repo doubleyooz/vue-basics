@@ -14,7 +14,7 @@
         class="flex items-center justify-center gap-3 p-1.5 w-full border hover:bg-gray-100 rounded-full text-lg font-semibold"
       >
         <img
-          src="/_nuxt/assets/google-logo.png"
+          src="~/assets/google-logo.png"
           alt=""
           class="w-full max-w-[30px]"
         />
@@ -25,7 +25,7 @@
         class="mt-4 flex items-center justify-center gap-3 p-1.5 w-full border hover:bg-gray-100 rounded-full text-lg font-semibold"
       >
         <img
-          src="/_nuxt/assets/github-logo.png"
+          src="~/assets/github-logo.png"
           alt=""
           class="w-full max-w-[30px]"
         />
