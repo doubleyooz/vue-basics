@@ -135,6 +135,7 @@ const submit = async () => {
       }
     : { route: "api/prisma/add-address", method: "POST" };
 
+  console.log(fetchRoute);
   await useFetch(
     fetchRoute.route,
     {
