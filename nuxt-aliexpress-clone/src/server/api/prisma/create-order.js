@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { userId, products, stripeId, name, address, zipCode, city, country } =
+  const { userId, products, stripeId, name, address, zipcode, city, country } =
     body;
   const order = await prisma.orders.create({
     data: {
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
       stripeId,
       name,
       address,
-      zipcode: zipCode,
+      zipcode: zipcode,
       city,
       country,
     },

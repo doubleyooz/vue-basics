@@ -101,7 +101,7 @@
               <button
                 :disabled="isProcessing"
                 type="submit"
-                class="mt-4 g-gradient-to-r from-[#FE630C] to-[#FF3200] w-full text-white text-[21px] font-semibold p-1.5 rounded-full"
+                class="mt-4 bg-gradient-to-r from-[#FE630C] to-[#FF3200] w-full text-white text-[21px] font-semibold p-1.5 rounded-full"
                 :class="isProcessing ? 'opacity-70' : 'opacity-100'"
               >
                 <Icon v-if="isProcessing" name="eos-icons:bubble-loading" />
@@ -176,11 +176,98 @@ watch(
   }
 );
 
-const stripeInit = async () => {};
+const stripeInit = async () => {
+  const runtimeConfig = useRuntimeConfig();
+ 
+  stripe = Stripe(runtimeConfig.public.stripePk);
 
-const pay = async () => {};
+  let res = await $fetch("/api/stripe/paymentintent", {
+    method: "POST",
+    body: {
+      amount: total.value,
+    },
+  });
 
-const createOrder = async (stripeId) => {};
+  clientSecret = res.client_secret;
 
-const showError = (errorMsgText) => {};
+  elements = stripe.elements();
+
+  const style = {
+    base: {
+      fontSize: "18px",
+    },
+    invalid: {
+      fontFamily: "Arial, sans-serif",
+      color: "#EE4B2B",
+      iconColor: "#EE4B2B",
+    },
+  };
+
+  card = elements.create("card", {
+    hidePostalCode: true,
+    style,
+  });
+
+  card.mount("#card-element");
+
+  card.on("change", function (event) {
+    document.querySelector("button").disabled = event.empty;
+
+    document.querySelector("#card-error").textContent = event.error
+      ? event.error.message
+      : "";
+  });
+
+  isProcessing.value = false;
+};
+
+const pay = async () => {
+  if (currentAddress.value && currentAddress.value.data == "") {
+    showError("Please add shipping address");
+    return;
+  }
+
+  isProcessing.value = true;
+
+  let result = await stripe.confirmCardPayment(clientSecret, {
+    payment_method: { card: card },
+  });
+
+  if (result.error) {
+    showError(result.error.message);
+    isProcessing.value = false;
+  } else {
+    await createOrder(result.paymentIntent.id);
+    userStore.cart = [];
+    userStore.checkout = [];
+    setTimeout(() => {
+      return navigateTo("/success");
+    }, 500);
+  }
+};
+
+const createOrder = async (stripeId) => {
+  await useFetch("/api/prisma/create-order", {
+    method: "POST",
+    body: {
+      userId: user.value.id,
+      stripeId: stripeId,
+      name: currentAddress.value.data.name,
+      address: currentAddress.value.data.address,
+      zipcode: currentAddress.value.data.zipcode,
+      city: currentAddress.value.data.city,
+      country: currentAddress.value.data.country,
+      products: userStore.checkout,
+    },
+  });
+};
+
+const showError = (errorMsgText) => {
+  let errorMsg = document.querySelector("#card-error");
+
+  errorMsg.textContent = errorMsgText;
+  setTimeout(() => {
+    errorMsg.textContent = "";
+  }, 400);
+};
 </script>

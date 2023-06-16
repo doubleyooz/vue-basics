@@ -23,9 +23,9 @@
           <TextInput
             class="w-full mt-2"
             placeholder="Zip Code"
-            v-model:input="zipCode"
+            v-model:input="zipcode"
             inputType="text"
-            :error="error && error.type == 'zipCode' ? error.message : ''"
+            :error="error && error.type == 'zipcode' ? error.message : ''"
           />
 
           <TextInput
@@ -66,7 +66,7 @@ const user = useSupabaseUser();
 
 let contactName = ref(null);
 let address = ref(null);
-let zipCode = ref(null);
+let zipcode = ref(null);
 let city = ref(null);
 let country = ref(null);
 
@@ -83,7 +83,7 @@ watchEffect(async () => {
   if (currentAddress.value.data) {
     contactName.value = currentAddress.value.data.name;
     address.value = currentAddress.value.data.address;
-    zipCode.value = currentAddress.value.data.zipcode;
+    zipcode.value = currentAddress.value.data.zipcode;
     country.value = currentAddress.value.data.country;
     city.value = currentAddress.value.data.city;
 
@@ -106,9 +106,9 @@ const submit = async () => {
       type: "address",
       message: "An address is required",
     };
-  } else if (!zipCode.value) {
+  } else if (!zipcode.value) {
     error.value = {
-      type: "zipCode",
+      type: "zipcode",
       message: "A zip code is required",
     };
   } else if (!city.value) {
@@ -144,7 +144,7 @@ const submit = async () => {
         userId: user.value.id,
         name: contactName.value,
         address: address.value,
-        zipCode: zipCode.value,
+        zipcode: zipcode.value,
         city: city.value,
         country: country.value,
       },
