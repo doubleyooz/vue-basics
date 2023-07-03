@@ -1,7 +1,7 @@
 <template>
   <div
     id="TopNav"
-    class="fiexed bg-white z-30 flex items-center w-full border-b h-[61px]"
+    class="fixed bg-white z-30 flex items-center w-full border-b h-[61px]"
   >
     <div
       class="flex items-center justify-between w-full px-6 mx-auto"
@@ -24,69 +24,67 @@
         <div class="px-3 py-1 flex items-center border-l border-l-gray-300">
           <Icon name="ri:search-line" color="#A1A2A7" size="22" />
         </div>
-
-        <div
-          class="flex items-center justify-end gap-3 min-w-[275px] max-w-[320px] w-full"
+      </div>
+      <div
+        class="flex items-center justify-end gap-3 min-w-[275px] max-w-[320px] w-full"
+      >
+        <button
+          class="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100"
         >
+          <Icon name="mdi:plus" color="#000000" size="22" />
+          <span class="px-2 font-medium text-[15px]">Upload</span>
+        </button>
+
+        <div v-if="false" class="flex items-center">
           <button
-            class="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100"
+            class="flex items-center bg-[#F02C56] text-white border rounded-md px-3 py-[6px]"
           >
-            <Icon name="mdi:plus" color="#000000" size="22" />
-            <span class="px-2 font-medium text-[15px]">Upload</span>
+            <span class="mx-4 font-medium text-[15px]">Log in</span>
           </button>
+          <Icon name="mdi:dots-vertical" color="#161724" size="25" />
+        </div>
 
-          <div v-if="false" class="flex items-center">
-            <button
-              class="flex items-center bg-[#F02C56] text-white border rounded-md px-3 py-[6px]"
-            >
-              <span class="mx-4 font-medium text-[15px]">Log in</span>
+        <div class="flex items-center">
+          <Icon
+            name="carbon:send-alt"
+            size="30"
+            class="ml-1 mr-4"
+            color="#161724"
+          />
+          <Icon
+            name="bx:message-detail"
+            class="mr-5"
+            size="27"
+            color="#161724"
+          />
+          <div class="relative">
+            <button class="mt-1" @click="($event) => (showMenu = !showMenu)">
+              <img
+                class="rounded-full"
+                width="33"
+                src="https://picsum.photos/id/83/300/320"
+                alt=""
+              />
             </button>
-            <Icon name="mdi:dots-vertical" color="#161724" size="25" />
-          </div>
 
-          <div class="flex items-center">
-            <Icon
-              name="carbon:send-alt"
-              size="30"
-              class="ml-1 mr-4"
-              color="#161724"
-            />
-            <Icon
-              name="bx:message-detail"
-              class="mr-5"
-              size="27"
-              color="#161724"
-            />
-            <div class="relative">
-              <button class="mt-1"
-              @click="$event => showMenu = !showMenu">
-                <img
-                  class="rounded-full"
-                  width="33"
-                  src="https://picsum.photos/id/83/300/320"
-                  alt=""
-                />
-              </button>
+            <div
+              v-if="showMenu"
+              id="PopupMenu"
+              class="absolute bg-white rounded-lg py-1.5 w-[200px] shadow-xl border top-[43px] -right-2"
+            >
+              <NuxtLink
+                @click="($event) => (showMenu = false)"
+                class="flex items-center justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <Icon name="ph:user" size="20" />
+                <span class="pl-2 font-semibold text-sm">Profile</span>
+              </NuxtLink>
 
               <div
-                v-if="showMenu"
-                id="PopupMenu"
-                class="absolute bg-white rounded-lg py-1.5 w-[200px] shadow-xl border top-[43px] -right-2"
+                class="flex items-center justify-start py-3 px-[6px] hover:bg-gray-100 cursor-pointer"
               >
-                <NuxtLink
-                  @click="($event) => (showMenu = false)"
-                  class="flex items-center justify-start py-3 px-2 hover:bg-gray-100 cursor-pointer"
-                >
-                  <Icon name="ph:user" size="20" />
-                  <span class="pl-2 font-semibold text-sm">Profile</span>
-                </NuxtLink>
-
-                <div
-                  class="flex items-center justify-start py-3 px-[6px] hover:bg-gray-100 cursor-pointer"
-                >
-                  <Icon name="ic:outline-login" size="20" />
-                  <span class="pl-2 font-semibold text-sm">Log out</span>
-                </div>
+                <Icon name="ic:outline-login" size="20" />
+                <span class="pl-2 font-semibold text-sm">Log out</span>
               </div>
             </div>
           </div>
@@ -98,5 +96,5 @@
 
 <script setup>
 const route = useRoute();
-let showMenu = ref(false)
+let showMenu = ref(false);
 </script>

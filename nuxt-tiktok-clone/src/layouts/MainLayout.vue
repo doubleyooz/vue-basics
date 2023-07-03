@@ -4,6 +4,7 @@
     <div>
       <SideNavMain/>
     </div>
+    <slot/>
   </div>
 </template>
 <script setup>
