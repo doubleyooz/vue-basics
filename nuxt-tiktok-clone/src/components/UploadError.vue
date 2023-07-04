@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full relatvie flex justify-center">
+  <div class="w-full relative flex justify-center">
     <div
       class="absolute top-6 z-50 mx-auto bg-black bg-opacity-70 text-white px-14 py-3 rounded-sm"
       :class="errorType ? 'visible' : 'invisible'"
@@ -25,7 +25,7 @@ watch(
     } else if (errorType.value == "file") {
       error.value = "Unsupported file. Use MP4 instead";
     } else {
-        error.value = ''
+      error.value = "";
     }
   }
 );

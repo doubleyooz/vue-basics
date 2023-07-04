@@ -1,5 +1,16 @@
 <template>
   <UploadError :errorType="errorType" />
+  <div
+    v-if="isUploading"
+    class="fixed flex items-center justify-center top-0 left-0 w-full h-screen bg-black z-50 bg-opacity-50"
+  >
+    <Icon
+      class="animate-spin ml-1"
+      name="mingcute:loading-line"
+      size="100"
+      color="#FFFFFF"
+    />
+  </div>
   <UploadLayout>
     <div
       class="w-full mt-20 mb-10 bg-white \shadow-lg rounded-md py-6 md:px-10 px-4"
@@ -13,7 +24,7 @@
           v-if="!fileDisplay"
           for="fileInput"
           @drop.prevent="onDrop"
-          @dragover.prevent="($event) => {}"
+          @dragover.prevent=""
           class="md:mx-0 mx-auto mt-4 mb-6 flex flex-col items-center justify-center w-full max-w-[260px] h-[470px] text-center p-3 border-2 border-dashed border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer"
         >
           <Icon name="majesticons:cloud-upload" size="40" color="#b3b3b1" />
@@ -54,6 +65,7 @@
             src="~/assets/tiktok-logo-white.png"
             alt=""
           />
+
           <video
             autoplay
             loop
@@ -138,7 +150,6 @@
 </template>
 
 <script setup>
-import { watch } from "fs";
 import UploadLayout from "~/layouts/UploadLayout.vue";
 
 let file = ref(null);
@@ -149,13 +160,16 @@ let fileData = ref(null);
 let errors = ref(null);
 let isUploading = ref(false);
 
-watch(() => caption.value, () => {
-    if(caption.length >= 150){
-        errorType.value = 'caption';
-        return
-    } 
+watch(
+  () => caption.value,
+  (caption) => {
+    if (caption.length >= 150) {
+      errorType.value = "caption";
+      return;
+    }
     errorType.value = null;
-})
+  }
+);
 
 const onChange = () => {
   fileDisplay.value = URL.createObjectURL(file.value.files[0]);
