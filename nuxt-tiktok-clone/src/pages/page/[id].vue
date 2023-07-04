@@ -144,7 +144,7 @@
                 User name
                 <Icon
                   v-if="true"
-                  @click="($event) => deleteComment()"
+                  @click="$event => deleteComment()"
                   class="cursor-pointer"
                   name="material-symbols:delete-outline-sharp"
                   size="25"
