@@ -46,7 +46,7 @@
       class="w-full text-[17px] font-semibold text-white py-3 rounded-sm"
       :disabled="!email || !name || !confirmPassword || !password"
       :class="
-        !(!email || !name || !confirmPassword || !password)
+        (!email || !name || !confirmPassword || !password)
           ? 'bg-gray-200'
           : 'bg-[#F02C56]'
       "

@@ -5,7 +5,7 @@
   >
     <div class="relative bg-white w-full max-w-[470px] h-3/4 p-4 rounded-lg">
       <div class="w-full flex justify-end">
-        <button class="p-1.5 rounded-full bg-gray-100">
+        <button @click="$generalStore.isLoginOpen = false" class="p-1.5 rounded-full bg-gray-100">
           <Icon name="mdi:close" size="26" />
         </button>
       </div>
@@ -30,5 +30,6 @@
 </template>
 
 <script setup lang="ts">
+const {$generalStore} = useNuxtApp()
 let isRegister = ref<boolean>(true);
 </script>

@@ -5,7 +5,7 @@
   >
     <div
       class="flex items-center justify-between w-full px-6 mx-auto"
-      :class="route.fullPaht === '/' ? 'max-w-[1150px]' : ''"
+      :class="route.fullPath === '/' ? 'max-w-[1150px]' : ''"
     >
       <div :class="route.fullPath === '/' ? 'w-[80%]' : 'lg:w-[20%] w-[70%]'">
         <NuxtLink to="/">
@@ -35,8 +35,9 @@
           <span class="px-2 font-medium text-[15px]">Upload</span>
         </button>
 
-        <div v-if="false" class="flex items-center">
+        <div v-if="!$userStore.id" class="flex items-center">
           <button
+            @click="$event => $generalStore.isLoginOpen = true"
             class="flex items-center bg-[#F02C56] text-white border rounded-md px-3 py-[6px]"
           >
             <span class="mx-4 font-medium text-[15px]">Log in</span>
@@ -44,7 +45,7 @@
           <Icon name="mdi:dots-vertical" color="#161724" size="25" />
         </div>
 
-        <div class="flex items-center">
+        <div v-else class="flex items-center">
           <Icon
             name="carbon:send-alt"
             size="30"
@@ -95,6 +96,8 @@
 </template>
 
 <script setup>
+const { $userStore, $generalStore} = useNuxtApp();
+
 const route = useRoute();
 let showMenu = ref(false);
 </script>

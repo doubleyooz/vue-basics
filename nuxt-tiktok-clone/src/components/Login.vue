@@ -28,7 +28,7 @@
       @click="($event) => login()"
       class="w-full text-[17px] font-semibold text-white py-3 rounded-sm"
       :disabled="!email || !password"
-      :class="!(!email || !password) ? 'bg-gray-200' : 'bg-[#F02C56]'"
+      :class="!email || !password ? 'bg-gray-200' : 'bg-[#F02C56]'"
     >
       Log in
     </button>
